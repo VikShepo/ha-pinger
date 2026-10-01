@@ -33,6 +33,7 @@ SETTINGS = {
     "notify_service": "",
     "sort_by": "manual",
     "sort_desc": False,
+    "language": "auto",
 }
 TARGET = {
     "name": "",
@@ -79,6 +80,8 @@ def validate_settings(data):
     if not isinstance(data, dict) or set(data) - SETTINGS.keys():
         raise ValueError("Unbekannte Einstellungen.")
     result = SETTINGS | data
+    if result["language"] not in ("auto", "de", "en"):
+        raise ValueError("Ungültige Sprache.")
     for key, low, high in (
         ("interval_minutes", 1, 1440), ("timeout_seconds", 1, 10),
         ("attempts", 1, 5), ("offline_after_seconds", 0, 86400),

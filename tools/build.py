@@ -9,7 +9,7 @@ root = Path(__file__).resolve().parents[1]
 version = json.loads((root / "custom_components/ha_pinger/manifest.json").read_text(encoding="utf-8"))["version"]
 output = root / "dist" / f"HA-Pinger-Control-Center-{version}.zip"
 output.parent.mkdir(exist_ok=True)
-files = [root / name for name in ("install.py", "install.sh", "install-vpn.sh", "README.md", "CHANGELOG.md", "hacs.json", "repository.yaml")]
+files = [root / name for name in ("install.py", "install.sh", "install-vpn.sh", "README.md", "README.en.md", "CHANGELOG.md", "hacs.json", "repository.yaml")]
 files.extend((root / "examples").rglob("*.yaml"))
 files.extend((root / "blueprints").rglob("*.yaml"))
 files.extend(p for p in (root / "custom_components").rglob("*")
@@ -17,6 +17,7 @@ files.extend(p for p in (root / "custom_components").rglob("*")
 files.extend(p for p in (root / "addons" / "ncc_vpn").iterdir()
              if p.is_file() and (p.name == "Dockerfile" or p.suffix in (".go", ".mod", ".sum", ".yaml", ".md", ".png"))
              and not p.name.endswith("_test.go"))
+files.extend((root / "addons/ncc_vpn/translations").glob("*.yaml"))
 with ZipFile(output, "w", ZIP_DEFLATED) as archive:
     for path in sorted(files):
         archive.write(path, str(Path("HA-Pinger") / path.relative_to(root)))

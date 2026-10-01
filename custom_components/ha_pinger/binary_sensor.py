@@ -53,7 +53,8 @@ class PingSensor(BinarySensorEntity):
 
     @property
     def name(self):
-        return f"Netzwerk {self.hub.targets.get(self.target_id, {}).get('name', 'Adresse')}"
+        prefix = "Netzwerk" if self.hub.language == "de" else "Network"
+        return f"{prefix} {self.hub.targets.get(self.target_id, {}).get('name', '')}".strip()
 
     @property
     def available(self):

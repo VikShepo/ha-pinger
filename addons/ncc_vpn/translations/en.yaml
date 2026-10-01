@@ -1,0 +1,6 @@
+configuration:
+  api_token:
+    name: Access key
+    description: Use the same key as in Network Control Center → Networks → Connect app. At least 32 characters.
+network:
+  8099/tcp: Optional API port. HA can use the internal app hostname on port 8099 without publishing this port.

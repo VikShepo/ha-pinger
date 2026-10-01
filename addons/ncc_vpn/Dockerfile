@@ -10,7 +10,7 @@ FROM alpine:3.23
 RUN apk add --no-cache ca-certificates
 COPY --from=build /ncc-vpn /usr/local/bin/ncc-vpn
 COPY --from=build /licenses /usr/share/licenses/ncc-vpn
-ARG BUILD_VERSION=1.4.1
+ARG BUILD_VERSION=1.5.0
 LABEL io.hass.type="app" io.hass.version="${BUILD_VERSION}" io.hass.arch="aarch64|amd64"
 EXPOSE 8099
 ENTRYPOINT ["/usr/local/bin/ncc-vpn"]

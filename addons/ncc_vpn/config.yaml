@@ -1,8 +1,8 @@
 name: Network Control Center WireGuard
-version: "1.4.1"
+version: "1.5.0"
 slug: ncc_vpn
 url: https://github.com/VikShepo/ha-pinger/tree/master/addons/ncc_vpn
-description: Isolierte WireGuard-Verbindungen für Ping- und Webprüfungen im Network Control Center
+description: WireGuard network checks / Netzwerkprüfungen für Network Control Center
 arch:
   - aarch64
   - amd64

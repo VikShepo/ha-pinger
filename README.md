@@ -1,8 +1,20 @@
 # Network Control Center für Home Assistant
 
-Ein lokales Control Center mit den Tabs **IP-Adressen** und **DDNS**, einer eigenen Seite **Network Control Center** in der Home-Assistant-Seitenleiste und einer kompakten Dashboard-Kachel. Die Oberfläche ist auf Deutsch und für Desktop und Handy ausgelegt.
+<img src="https://raw.githubusercontent.com/VikShepo/ha-pinger/master/custom_components/ha_pinger/brand/icon.png" width="72" height="72" alt="Network Control Center icon">
 
-**Version 1.4.1: Neue Installationen starten leer.** Ausfallmeldungen verwenden denselben Handy-Dienst wie der Testknopf, mit einer Wartezeit in Sekunden und unabhängigen Wiederholungen bei gemeldeten Versandfehlern. Verlaufsbalken sind auch mobil sichtbar. Unter **Netze** aktivierst du ein gespeichertes WireGuard-Netz; der Wechsel ins Heimnetz schließt den Tunnel. Der Sonne-/Mond-Knopf schaltet das Control Center zwischen hell und dunkel um. Gerätebilder, 7.447 durchsuchbare Symbole, Gruppen, IP-Bereiche und der 30-Tage-Verlauf bleiben enthalten.
+**Deutsch** · [English documentation](README.en.md)
+
+**Deutsch:** Überwache IP-Adressen und DDNS-Domains direkt in Home Assistant: Ping, Webprüfungen, Push bei Ausfällen, Favoriten, Gruppen und 30-Tage-Verlauf. Mit eigener Seitenleiste, Dashboard-Kachel und optionalen WireGuard-Netzen. Die Oberfläche unterstützt Deutsch und Englisch auf Desktop und Handy.
+
+**English:** Monitor IP addresses and DDNS domains in Home Assistant with ping, web checks, outage notifications, favorites, groups and 30-day history. Includes a dedicated sidebar page, dashboard card and optional WireGuard networks. Available in German and English on desktop and mobile.
+
+### Sprache und Darstellung
+
+Unter **Einstellungen → Sprache** stehen **Home-Assistant-Sprache verwenden**, **Deutsch** und **English** zur Wahl. Standardmäßig folgt die Oberfläche der Sprache deines HA-Profils; für andere Sprachen wird Englisch verwendet. Eine feste Auswahl gilt für alle Ansichten des Control Centers und wird gespeichert. Automatische Push-Meldungen verwenden bei der automatischen Auswahl die HA-Systemsprache. Gerätenamen und Gruppennamen werden nicht übersetzt.
+
+Der Dunkelmodus verwendet ein weiches Schwarzgrau (`#282828`) mit etwas helleren Karten (`#333333`). Der Sonne-/Mond-Knopf speichert die Auswahl im jeweiligen Browser. Ohne eigene Auswahl folgt der Modus dem HA-Theme.
+
+**Version 1.5.0: Neue Installationen starten leer.** Ausfallmeldungen verwenden denselben Handy-Dienst wie der Testknopf, mit einer Wartezeit in Sekunden und unabhängigen Wiederholungen bei gemeldeten Versandfehlern. Verlaufsbalken sind auch mobil sichtbar. Unter **Netze** aktivierst du ein gespeichertes WireGuard-Netz; der Wechsel ins Heimnetz schließt den Tunnel. Der Sonne-/Mond-Knopf schaltet das Control Center zwischen hell und dunkel um. Gerätebilder, 7.447 durchsuchbare Symbole, Gruppen, IP-Bereiche und der 30-Tage-Verlauf bleiben enthalten.
 
 ## Vorhandene Installation aktualisieren
 
@@ -27,7 +39,7 @@ Die WireGuard-App wird separat über den HA-App-Store aktualisiert, siehe [WireG
 
 Die Integration bleibt eingerichtet. Bereits gespeicherte Adressen, Gruppen, Favoriten, Push-Einstellungen und vorhandene Messungen bleiben erhalten. Die längere Historie wächst ab den tatsächlichen Prüfungen; fehlende frühere Daten bleiben grau. Eine neue Installation ohne gespeicherte Daten startet leer. Schon gespeicherte Einträge werden beim Update nicht automatisch gelöscht. Alternativ das Installationsskript wie unten erneut ausführen; dabei wird zusätzlich der bisherige Code gesichert.
 
-**Bei WireGuard auch die mitgelieferte App auf 1.4.1 aktualisieren.** Integration und App benötigen beide dieses Update für das Aktivieren und Deaktivieren der Tunnel. Beim ersten Update von 1.3.0 ist das Heimnetz ausgewählt; gespeicherte Profile bleiben erhalten und können unter **Netze** aktiviert werden. Für HA OS auf deinem Raspberry Pi 5: [WireGuard installieren und aktualisieren](addons/ncc_vpn/DOCS.md). Die übrigen Funktionen benötigen nur die Integration.
+**Die WireGuard-App 1.5.0 ergänzt deutsche und englische Konfigurationsfelder.** Der Netzwechsel wird seit Version 1.4.0 unterstützt. Beim ersten Update von 1.3.0 ist das Heimnetz ausgewählt; gespeicherte Profile bleiben erhalten und können unter **Netze** aktiviert werden. Für HA OS auf deinem Raspberry Pi 5: [WireGuard installieren und aktualisieren](addons/ncc_vpn/DOCS.md). Die übrigen Funktionen benötigen nur die Integration.
 
 Bestehende Push-Wartezeiten werden umgerechnet: **5 Minuten werden zu 300 Sekunden**. Für eine Meldung unmittelbar nach der ersten erfolglosen Prüfung in den Einstellungen **Ausfallmeldung nach · Sekunden = 0** setzen. Das Prüfintervall bleibt eine separate Einstellung.
 
@@ -35,13 +47,13 @@ Bestehende Push-Wartezeiten werden umgerechnet: **5 Minuten werden zu 300 Sekund
 
 ### Panel lädt nicht oder Integrations-Icon fehlt
 
-Bei **„Unable to load custom panel …“** zuerst die angezeigte Versionsnummer prüfen. Das Paket 1.4.1 registriert `ha-pinger.js?v=1.4.1`. Wenn noch 1.3.0 angezeigt wird, den gesamten Ordner `custom_components/ha_pinger` aus **`HA-Pinger-Control-Center-1.4.1.zip`** ersetzen, Home Assistant vollständig neu starten und anschließend Browser bzw. Companion-App vollständig neu laden. Nur die Versionsnummer im Link zu ändern ersetzt keine Dateien.
+Bei **„Unable to load custom panel …“** zuerst die angezeigte Versionsnummer prüfen. Das Paket 1.5.0 registriert `ha-pinger.js?v=1.5.0`. Wenn noch 1.3.0 angezeigt wird, den gesamten Ordner `custom_components/ha_pinger` aus **`HA-Pinger-Control-Center-1.5.0.zip`** ersetzen, Home Assistant vollständig neu starten und anschließend Browser bzw. Companion-App vollständig neu laden. Nur die Versionsnummer im Link zu ändern ersetzt keine Dateien.
 
 Im File Editor müssen danach diese Dateien im tatsächlichen HA-Konfigurationsordner liegen:
 
 ```text
-custom_components/ha_pinger/manifest.json         (version: 1.4.1)
-custom_components/ha_pinger/const.py              (VERSION = "1.4.1")
+custom_components/ha_pinger/manifest.json         (version: 1.5.0)
+custom_components/ha_pinger/const.py              (VERSION = "1.5.0")
 custom_components/ha_pinger/frontend/ha-pinger.js
 custom_components/ha_pinger/frontend/ha-pinger.css
 custom_components/ha_pinger/brand/icon.png
@@ -49,6 +61,8 @@ custom_components/ha_pinger/brand/icon@2x.png
 ```
 
 Der Ordner `brand` gehört direkt neben `frontend`. Die Integration und ihre `.storage`-Dateien müssen dafür nicht gelöscht werden. Lokale Integrations-Icons werden ab HA 2026.3 unterstützt. Falls das Panel mit aktuellem Code weiterhin nicht lädt, den vollständigen Browser-Konsolenfehler und etwaige fehlgeschlagene Dateiabrufe prüfen; die allgemeine Panel-Meldung allein nennt die Ursache nicht.
+
+**„Icon not available“ nur in HACS:** Die Icons sind im Paket enthalten. HACS 2.0.5 lädt Integrations-Icons noch vom alten öffentlichen Bildserver und zeigt lokal mitgelieferte Icons deshalb nicht an. Das ist ein [bekannter HACS-Fehler](https://github.com/hacs/integration/issues/5223); die [vorgeschlagene HACS-Korrektur](https://github.com/hacs/frontend/pull/937) ist am 1. Oktober 2026 noch offen. Eine Neuinstallation von Network Control Center behebt diese HACS-Anzeige nicht. Unter **Geräte & Dienste** unterstützt HA ab 2026.3 die mitgelieferten Icons.
 
 ### Neue Installation
 
@@ -85,7 +99,7 @@ compact: true
 
 Die Kachel zeigt Statuszahlen und bis zu fünf Favoriten. **Control Center öffnen** führt zur vollständigen Ansicht. Mit `compact: false` lässt sich die vollständige Oberfläche direkt als große Dashboard-Karte einbetten. Die Integration registriert das JavaScript automatisch; zusätzliche Karten aus HACS sind nicht erforderlich. Nach der ersten Einrichtung den Browser oder die Companion-App neu laden. Die Karte erscheint auch in der Auswahl als „Network Control Center“.
 
-Falls „Custom element doesn't exist“ bestehen bleibt, unter **Einstellungen → Dashboards → Ressourcen** einmalig `/ha_pinger_static/ha-pinger.js?v=1.4.1` als **JavaScript-Modul** hinzufügen. Den erweiterten Modus im Benutzerprofil bei Bedarf einschalten.
+Falls „Custom element doesn't exist“ bestehen bleibt, unter **Einstellungen → Dashboards → Ressourcen** einmalig `/ha_pinger_static/ha-pinger.js?v=1.5.0` als **JavaScript-Modul** hinzufügen. Den erweiterten Modus im Benutzerprofil bei Bedarf einschalten.
 
 ## Funktionen
 
@@ -200,7 +214,7 @@ Die kurzen Verlaufsbalken sind sowohl am PC als auch auf dem Handy in jedem Ger�
 
 Das Installationsskript erneut ausführen und HA neu starten. Vorhandener Integrationscode wird unter `ha_pinger_backups` gesichert. `configuration.yaml` und andere Integrationen werden nicht verändert.
 
-Beim Update auf **1.4.1** anschließend auch den Browser bzw. die Companion-App vollständig neu laden. Falls eine JavaScript-Ressource manuell angelegt wurde, deren Versionsangabe auf `?v=1.4.1` ändern. Den gesamten Integrationsordner einschließlich `frontend/ha-pinger.css` aktualisieren. Bei Nutzung von WireGuard auch die separate App auf 1.4.1 aktualisieren.
+Beim Update auf **1.5.0** anschließend auch den Browser bzw. die Companion-App vollständig neu laden. Falls eine JavaScript-Ressource manuell angelegt wurde, deren Versionsangabe auf `?v=1.5.0` ändern. Den gesamten Integrationsordner einschließlich `frontend/ha-pinger.css` aktualisieren. Bei Nutzung von WireGuard auch die separate App auf 1.5.0 aktualisieren.
 
 Adressen, Gruppen, Reihenfolge, Favoriten, Prüfregeln, aktives Netz, Einstellungen, Meldestatus und Verlauf liegen in **`/config/.storage/ha_pinger`**. Der App-Zugriffsschlüssel liegt separat in **`.storage/ha_pinger_secrets`**, die Bilder im Ordner **`.storage/ha_pinger_images`**. Diese Daten bleiben bei Updates und beim Entfernen/erneuten Hinzufügen der Integration erhalten. Sie gehören in dein HA-Backup. Nicht bei laufender Integration bearbeiten. Beim Löschen aller Adressen bleibt die Liste auch nach einem Neustart leer. WireGuard-Dateien einschließlich privater Schlüssel liegen im eigenen persistenten Datenspeicher der optionalen App; diese App bei HA-Backups mit auswählen. Die Hell-/Dunkel-Auswahl liegt nur im jeweiligen Browser; ohne eigene Auswahl folgt das Control Center dem HA-Theme.
 
@@ -228,7 +242,7 @@ python tools/build.py
 
 ### Neue Version veröffentlichen
 
-Versionen in `manifest.json`, `const.py`, den Frontend-Asset-URLs und den App-Versionsfeldern gemeinsam erhöhen. `CHANGELOG.md` und `RELEASE_NOTES.md` aktualisieren, Änderungen committen und pushen. Danach einen passenden Tag anlegen und pushen, beispielsweise `v1.4.1`. Der Workflow **Test and release** prüft Python, Oberfläche, Installationsskripte und WireGuard, baut den Container und veröffentlicht bei Erfolg den GitHub-Release samt ZIP. Ein Tag ohne erfolgreichen Release wird von HACS nicht als neue Release-Version angeboten. Der Workflow hat Schreibrechte nur im Veröffentlichungsjob.
+Versionen in `manifest.json`, `const.py`, den Frontend-Asset-URLs und den App-Versionsfeldern gemeinsam erhöhen. `CHANGELOG.md` und `RELEASE_NOTES.md` aktualisieren, Änderungen committen und pushen. Danach einen passenden Tag anlegen und pushen, beispielsweise `v1.5.0`. Der Workflow **Test and release** prüft Python, Oberfläche, Installationsskripte und WireGuard, baut den Container und veröffentlicht bei Erfolg den GitHub-Release samt ZIP. Ein Tag ohne erfolgreichen Release wird von HACS nicht als neue Release-Version angeboten. Der Workflow hat Schreibrechte nur im Veröffentlichungsjob.
 
 Für die optionale WireGuard-App liest der HA-App-Store die Version aus `addons/ncc_vpn/config.yaml` im Standardbranch. App-Änderungen deshalb zusammen mit der getesteten Release-Version veröffentlichen. Bei einem einmaligen Update über den Store kann dort die automatische Aktualisierung für die App eingeschaltet werden.
 

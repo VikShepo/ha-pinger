@@ -291,7 +291,7 @@ try{
   }
   await page.setViewportSize({width:390,height:844});
   await page.getByRole('button',{name:'Dunkelmodus aktivieren',exact:true}).click();
-  assert.equal(await page.evaluate(()=>getComputedStyle(window.pingerDemo.card).getPropertyValue('--bg').trim()),'#111');
+  assert.equal(await page.evaluate(()=>getComputedStyle(window.pingerDemo.card).getPropertyValue('--bg').trim()),'#282828');
   await page.reload();
   await page.getByRole('button',{name:'Hellmodus aktivieren',exact:true}).waitFor();
   await page.getByRole('button',{name:'Hellmodus aktivieren',exact:true}).click();
@@ -309,6 +309,77 @@ try{
   await page.goto(url);
   await page.locator('.empty').waitFor();
   await page.screenshot({path:resolve(root,'preview/mobile.png'),fullPage:true});
+  // HA profile language, explicit shared preference, translated dialogs and messages.
+  await page.goto(url+'?fixtures&lang=en');
+  await page.getByRole('button',{name:'Settings',exact:true}).waitFor();
+  assert.equal(await page.locator('ha-pinger-panel').getAttribute('lang'),'en');
+  assert.equal(await page.locator('.target-title strong').last().innerText(),'Powerline Büro');
+  assert.match(await page.locator('.aside.activity,.aside-card.activity').innerText(),/Reachable again/);
+  assert.equal(await page.getByRole('link',{name:'Open web interface for Gateway'}).count(),1);
+  await page.getByRole('button',{name:'Details for Gateway',exact:true}).click();
+  await page.locator('.timeline-day').first().waitFor();
+  assert.equal(await page.getByRole('heading',{name:'Last 30 days',exact:true}).count(),1);
+  assert.match(await page.locator('.probe-detail').last().innerText(),/Web service responded with HTTP 200/);
+  await page.getByRole('button',{name:'Log',exact:true}).click();
+  await page.locator('.log-entry').first().waitFor();
+  assert.match(await page.locator('#device-log').innerText(),/No response/);
+  await page.getByRole('button',{name:'Close',exact:true}).click();
+  await page.getByRole('button',{name:'Group',exact:true}).click();
+  await page.getByRole('button',{name:'Add group',exact:true}).click();
+  await page.getByRole('textbox',{name:'Group name',exact:true}).fill('Büro');
+  await page.getByRole('textbox',{name:'Group IP range · optional',exact:true}).fill('192.168.1.500');
+  await page.locator('.group-range-feedback.invalid').waitFor();
+  assert.match(await page.locator('.group-range-feedback').innerText(),/Invalid IP range/);
+  await page.getByRole('textbox',{name:'Group IP range · optional',exact:true}).fill('192.168.1.20-192.168.1.22');
+  await page.locator('.group-range-feedback.valid').waitFor();
+  assert.match(await page.locator('.group-range-feedback').innerText(),/3 addresses/);
+  await page.getByRole('button',{name:'Browse all icons',exact:true}).click();
+  await page.getByRole('searchbox',{name:'Search icons',exact:true}).fill('camera');
+  await page.getByRole('button',{name:'Choose mdi:camera',exact:true}).click();
+  await page.getByRole('button',{name:'Save',exact:true}).click();
+  await page.getByRole('button',{name:'Done',exact:true}).click();
+  await page.getByRole('button',{name:'Add',exact:true}).click();
+  await page.getByLabel('Check method',{exact:true}).selectOption('both');
+  assert.equal(await page.getByLabel('Device is reachable when',{exact:true}).inputValue(),'any');
+  await page.getByLabel('Group',{exact:true}).selectOption({label:'Büro'});
+  await page.getByRole('textbox',{name:'Name',exact:true}).fill('Erreichbar');
+  await page.getByRole('textbox',{name:'IP address',exact:true}).fill('192.168.1.20');
+  await page.getByRole('button',{name:'Save',exact:true}).click();
+  assert.equal(await page.locator('.target-title strong').last().innerText(),'Erreichbar');
+  await page.getByRole('button',{name:'Networks',exact:true}).click();
+  await page.getByRole('button',{name:'Connect app',exact:true}).click();
+  assert.equal(await page.getByRole('heading',{name:'Connect WireGuard app',exact:true}).count(),1);
+  await page.getByRole('button',{name:'Back',exact:true}).click();
+  await page.getByRole('button',{name:'Add network',exact:true}).click();
+  assert.equal(await page.getByLabel('WireGuard configuration',{exact:true}).count(),1);
+  await page.getByRole('button',{name:'Close',exact:true}).click();
+  await page.getByRole('button',{name:'Settings',exact:true}).click();
+  await page.getByLabel('Language',{exact:true}).selectOption('de');
+  await page.getByRole('button',{name:'Save',exact:true}).click();
+  await page.getByRole('button',{name:'Einstellungen',exact:true}).waitFor();
+  assert.equal(await page.evaluate(()=>window.pingerDemo.data.settings.language),'de');
+  assert.equal(await page.evaluate(()=>window.pingerDemo.card._number(1.5)),'1,5');
+  await page.getByRole('button',{name:'Einstellungen',exact:true}).click();
+  await page.getByLabel('Sprache',{exact:true}).selectOption('auto');
+  await page.getByRole('button',{name:'Speichern',exact:true}).click();
+  await page.getByRole('button',{name:'Settings',exact:true}).waitFor();
+  assert.equal(await page.evaluate(()=>window.pingerDemo.card._number(1.5)),'1.5');
+  await page.getByRole('button',{name:'Switch to dark mode',exact:true}).click();
+  for(const width of [360,390,768,1024,1480]){
+    await page.setViewportSize({width,height:1000});
+    assert.equal(await page.evaluate(()=>[...window.pingerDemo.card.shadowRoot.querySelectorAll('.shell,.head,.target,.stats,.toolbar')].some(el=>el.scrollWidth>el.clientWidth+1)),false,`English layout at ${width}px`);
+    await assertAlignedBars(page);
+    if(width===390||width===1480)await page.screenshot({path:resolve(root,`preview/english-dark-${width}.png`),fullPage:true});
+  }
+  // Auto mode follows a changed HA profile without altering saved data.
+  await page.evaluate(()=>{const d=window.pingerDemo;d.hass.locale.language='de';d.card.hass={...d.hass};});
+  await page.getByRole('button',{name:'Einstellungen',exact:true}).waitFor();
+  await page.evaluate(()=>{const d=window.pingerDemo;d.hass.locale.language='fr';d.card.hass={...d.hass};});
+  await page.getByRole('button',{name:'Settings',exact:true}).waitFor();
+  await page.evaluate(()=>localStorage.removeItem('ha_pinger_theme'));
+  await page.goto(url+'?lang=en&compact&theme=dark');
+  await page.getByRole('button',{name:'Open Control Center',exact:true}).waitFor();
+  assert.equal(await page.evaluate(()=>getComputedStyle(window.pingerDemo.card).getPropertyValue('--bg').trim()),'#282828');
   assert.deepEqual(errors,[]);
   console.log('UI checks passed: empty install, Ping/Web, independent checks, group/device icons with search, images, IP ranges, sorting, 30-day history, clear log, saved networks, mobile layouts, read-only, disconnect and dashboard card.');
 }finally{

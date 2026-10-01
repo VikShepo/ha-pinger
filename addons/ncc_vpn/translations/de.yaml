@@ -1,0 +1,6 @@
+configuration:
+  api_token:
+    name: Zugriffsschlüssel
+    description: Derselbe Schlüssel wie in Network Control Center → Netze → App verbinden. Mindestens 32 Zeichen.
+network:
+  8099/tcp: Optionaler API-Port. HA erreicht die App über ihren internen Hostnamen auf Port 8099 ohne Portfreigabe.

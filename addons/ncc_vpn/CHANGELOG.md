@@ -1,3 +1,10 @@
+# 1.5.0
+
+- Deutsch/English für die Konfigurationsfelder und Installationsanleitung.
+- German/English configuration labels and installation documentation.
+- Die Integration übersetzt WireGuard-Status und Fehler passend zur gewählten Sprache.
+- The integration translates WireGuard status and errors into the selected language.
+
 # 1.4.1
 
 - Veröffentlichung im GitHub-Repository mit Installationsquelle für den HA-App-Store.

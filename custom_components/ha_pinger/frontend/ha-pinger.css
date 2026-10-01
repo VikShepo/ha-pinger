@@ -26,11 +26,22 @@
   color-scheme: light;
 }
 :host([data-dark="true"]) {
-  --fallback-bg: #111;
-  --fallback-card: #1c1c1c;
+  --bg: #282828;
+  --panel: #333333;
+  --text: #e8e8e8;
+  --muted: #bdbdbd;
+  --green: #81c784;
+  --red: #ff8a80;
+  --warning: #ffca70;
+  --border: #505050;
+  --card-border: #505050;
+  --ha-card-background: #333333;
+  --card-background-color: #333333;
+  --fallback-bg: #282828;
+  --fallback-card: #333333;
   --fallback-text: #e1e1e1;
   --fallback-muted: #b3b3b3;
-  --fallback-divider: #383838;
+  --fallback-divider: #505050;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -365,7 +376,7 @@ label.check { display: flex; align-items: center; gap: 12px; font-size: 14px; co
 .current-network small { display:block; color:var(--muted); font-size:11px; }
 .network-choice-actions { display:flex; align-items:center; gap:4px; flex-shrink:0; }
 .network-choice-actions > button { padding:8px; }
-:host([data-theme="dark"]) { --bg:#111; --panel:#1c1c1c; --text:#e1e1e1; --muted:#b3b3b3; --border:#383838; --card-border:#383838; --ha-card-background:#1c1c1c; --card-background-color:#1c1c1c; --primary-text-color:#e1e1e1; --secondary-text-color:#b3b3b3; }
+:host([data-theme="dark"]) { --bg:#282828; --panel:#333333; --text:#e8e8e8; --muted:#bdbdbd; --border:#505050; --card-border:#505050; --ha-card-background:#333333; --card-background-color:#333333; --primary-text-color:#e8e8e8; --secondary-text-color:#bdbdbd; }
 :host([data-theme="light"]) { --bg:#fafafa; --panel:#fff; --text:#212121; --muted:#606060; --border:#e0e0e0; --card-border:#e0e0e0; --ha-card-background:#fff; --card-background-color:#fff; --primary-text-color:#212121; --secondary-text-color:#606060; }
 @media(max-width:650px) {
   .head { flex-wrap:wrap; }

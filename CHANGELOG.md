@@ -1,3 +1,21 @@
+# 1.5.0
+
+## Deutsch
+
+- Deutsch und Englisch für die Oberfläche, Dialoge, Statusmeldungen und Push-Nachrichten.
+- Sprache automatisch aus HA übernehmen oder unter Einstellungen fest auswählen.
+- Dunkelmodus mit Schwarzgrau und helleren Karten sowie besser lesbaren Statusfarben.
+- Zweisprachige Beschreibung, englische Anleitung und WireGuard-Konfigurationsfelder.
+- Hinweis zum noch offenen HACS-Problem mit lokal mitgelieferten Icons.
+
+## English
+
+- German and English interface, dialogs, status messages and push notifications.
+- Follow the HA language or save an explicit choice in settings.
+- Softer charcoal dark theme with lighter cards and clearer status colors.
+- Bilingual description, English documentation and translated WireGuard settings.
+- Documents the open HACS issue affecting bundled integration icons.
+
 # 1.4.1
 
 - Gruppenbereiche werden beim Eingeben und vor dem Speichern geprüft.

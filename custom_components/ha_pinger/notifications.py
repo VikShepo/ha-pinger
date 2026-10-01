@@ -2,14 +2,15 @@
 import asyncio
 
 from .const import PANEL_PATH
+from .i18n import translate_message
 
 
-async def send_mobile_push(hass, service, title, message):
+async def send_mobile_push(hass, service, title, message, *, locale="de"):
     domain, name = service.split(".", 1)
     if not hass.services.has_service(domain, name):
         raise ValueError("Der ausgewählte Handy-Dienst ist nicht verfügbar.")
     async with asyncio.timeout(15):
         await hass.services.async_call(domain, name, {
-            "title": title, "message": message,
+            "title": translate_message(title, locale), "message": translate_message(message, locale),
             "data": {"url": f"/{PANEL_PATH}", "clickAction": f"/{PANEL_PATH}"},
         }, blocking=True)

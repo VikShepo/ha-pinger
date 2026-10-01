@@ -1,5 +1,7 @@
 # WireGuard-Netze einrichten
 
+**Deutsch** · [English](DOCS.en.md)
+
 ## 1. App auf dem Raspberry Pi installieren
 
 ### Über GitHub als App-Repository
@@ -25,7 +27,7 @@ Diese Schritte gelten für **Home Assistant OS** mit **Einstellungen → Apps** 
 3. **Einstellungen → Apps → Store → ⋮ → Nach Updates suchen**. Falls nötig die Seite neu laden.
 4. Unter **Lokale Apps** die **Network Control Center WireGuard**-App öffnen und **Installieren** wählen. Der erste Build lädt Go-Abhängigkeiten und kann auf dem Pi mehrere Minuten dauern. Internetzugang ist dafür erforderlich.
 
-Die bestehende Integration `ha_pinger` muss ebenfalls auf **1.4.1** aktualisiert sein. Für den neuen Netzwechsel beide Teile aktualisieren. Diese zusätzliche App wird im **App-Store** installiert; die Integration bleibt unter **Geräte & Dienste**.
+Für Deutsch/Englisch auch die Integration `ha_pinger` auf **1.5.0** aktualisieren. Der Netzwechsel erfordert mindestens Version 1.4.0 beider Teile. Diese zusätzliche App wird im **App-Store** installiert; die Integration bleibt unter **Geräte & Dienste**.
 
 ## 2. Integration und App verbinden
 
@@ -62,7 +64,7 @@ Endpoint-Domainnamen werden beim Aktivieren und anschließend etwa alle zwei Min
 
 Die App speichert Profile einschließlich privater Schlüssel in `/data/profiles.json` und die aktive Profil-ID in `/data/active-profile.json`, jeweils mit Dateirechten 0600. Über die API werden nur Profilname, ID und Aktivierungsstatus zurückgegeben. Beide Dateien bleiben bei App-Neustarts erhalten. Bei HA-Backups die App einschließen; Backups enthalten dann auch die VPN-Schlüssel. Das persistente `/data` wird durch HA bereitgestellt. [HA: App-Konfiguration](https://developers.home-assistant.io/docs/apps/configuration/).
 
-Zum Update das neue Paket entpacken, `install-vpn.sh` erneut ausführen, den Store aktualisieren und die App auf **1.4.1** aktualisieren und starten. Auch den Integrationsordner `custom_components/ha_pinger` ersetzen und Home Assistant neu starten. Das Skript sichert bisherigen App-Quellcode außerhalb des Apps-Ordners. Bei Änderungen ohne Versionswechsel die lokale App über das App-Menü neu aufbauen.
+Zum Update das neue Paket entpacken, `install-vpn.sh` erneut ausführen, den Store aktualisieren und die App auf **1.5.0** aktualisieren und starten. Auch den Integrationsordner `custom_components/ha_pinger` ersetzen und Home Assistant neu starten. Das Skript sichert bisherigen App-Quellcode außerhalb des Apps-Ordners. Bei Änderungen ohne Versionswechsel die lokale App über das App-Menü neu aufbauen.
 
 Zur Entfernung zuerst **Heimnetz aktivieren**, Geräte anderen Netzen zuordnen oder löschen, dann die Profile im Control Center entfernen. Die WireGuard-App stoppen und deinstallieren, deren gespeicherte App-Daten und `/addons/ncc_vpn` bei gewünschter vollständiger Entfernung löschen. Die Integration kann mit Heimnetz-Adressen weiterlaufen. Eine vollständige Deinstallation des Control Centers ist in der Hauptanleitung beschrieben.
 
@@ -71,7 +73,7 @@ Zur Entfernung zuerst **Heimnetz aktivieren**, Geräte anderen Netzen zuordnen o
 Der Dienst lässt sich aus diesem Ordner als separates Docker-Image bauen:
 
 ```sh
-docker build -t ncc-vpn:1.4.1 .
+docker build -t ncc-vpn:1.5.0 .
 ```
 
 Einen Container mit persistentem Volume für `/data` und der Umgebungsvariable `NCC_TOKEN` (derselbe Zugriffsschlüssel, mindestens 32 Zeichen) starten. HA muss Port 8099 dieses Containers erreichen können. Im Control Center dessen erreichbare interne Adresse eintragen. Kein Host-Netzwerk, kein privilegierter Modus und keine Host-Routen sind erforderlich. Die passende interne Docker-Netzverbindung hängt von der bestehenden HA-Containerinstallation ab.

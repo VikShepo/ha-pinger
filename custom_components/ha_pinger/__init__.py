@@ -22,6 +22,7 @@ from .probe import check_target
 from .media import ImageStore
 from .vpn import AgentClient, validate_agent_url
 from .notifications import send_mobile_push
+from .i18n import language
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 PLATFORMS = [Platform.BINARY_SENSOR]
@@ -55,8 +56,15 @@ class Hub(Monitor):
     def agent(self):
         return AgentClient(async_get_clientsession(self.hass), self.secrets)
 
+    @property
+    def language(self):
+        locale = self.settings.get("language", "auto")
+        if locale == "auto":
+            locale = self.hass.config.language
+        return language(locale)
+
     async def notify(self, service, title, message):
-        await send_mobile_push(self.hass, service, title, message)
+        await send_mobile_push(self.hass, service, title, message, locale=self.language)
 
     async def switch_tunnel(self, network_id):
         if network_id or self.secrets.get("agent_token"):

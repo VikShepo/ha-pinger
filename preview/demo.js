@@ -47,6 +47,7 @@ const emit=()=>subscribers.forEach(callback=>callback(structuredClone(data)));
 const commands=[];
 const images=new Map(),logs=new Map();
 const hass={
+  locale:{language:new URLSearchParams(location.search).get('lang')||'de'},
   themes:{darkMode:new URLSearchParams(location.search).get('theme')==='dark'},
   user:{is_admin:!new URLSearchParams(location.search).has('readonly')},
   connection:{

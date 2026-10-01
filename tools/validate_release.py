@@ -23,8 +23,10 @@ with ZipFile(archive_path) as archive:
     assert archive.testzip() is None
     names = archive.namelist()
     assert len(names) == len(set(names))
-    for required in ("brand/icon.png", "brand/icon@2x.png", "frontend/ha-pinger.js", "frontend/ha-pinger.css", "frontend/icon-catalog.json"):
+    for required in ("brand/icon.png", "brand/icon@2x.png", "frontend/ha-pinger.js", "frontend/ha-pinger.css", "frontend/icon-catalog.json", "frontend/i18n.js", "frontend/strings.en.json", "frontend/messages.en.json"):
         assert f"HA-Pinger/custom_components/ha_pinger/{required}" in names
+    for required in ("README.en.md", "addons/ncc_vpn/DOCS.en.md", "addons/ncc_vpn/translations/en.yaml", "addons/ncc_vpn/translations/de.yaml"):
+        assert f"HA-Pinger/{required}" in names
     for name in names:
         relative = Path(name).relative_to("HA-Pinger")
         assert not any(part in ("..", ".storage", ".test-output", "preview", "__pycache__") for part in relative.parts)
