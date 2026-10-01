@@ -23,6 +23,12 @@ class LanguageTests(unittest.TestCase):
         restored.load(saved)
         self.assertEqual(restored.settings['language'], 'en')
         self.assertEqual(restored.targets, {})
+        key = restored.upsert({'name': 'Büro', 'host': '192.168.1.1'})
+        restored.states[key]['next_check'] = 12345
+        restored.states[key]['outage_notified'] = True
+        restored.configure({'language': 'de'})
+        self.assertEqual(restored.states[key]['next_check'], 12345)
+        self.assertTrue(restored.states[key]['outage_notified'])
         for value in ('fr', None, [], True):
             with self.assertRaises(ValueError):
                 model.validate_settings({'language': value})

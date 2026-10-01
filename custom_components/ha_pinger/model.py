@@ -368,7 +368,7 @@ class Monitor:
     def configure(self, data):
         old = self.settings
         self.settings = validate_settings(self.settings | seconds_settings(data))
-        if any(old[k] != self.settings[k] for k in SETTINGS if k not in ("sort_by", "sort_desc")):
+        if any(old[k] != self.settings[k] for k in SETTINGS if k not in ("sort_by", "sort_desc", "language")):
             for state in self.states.values():
                 state["next_check"] = 0
                 if old["notify_service"] != self.settings["notify_service"]:
