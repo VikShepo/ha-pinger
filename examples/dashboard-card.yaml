@@ -1,0 +1,7 @@
+# Dashboard bearbeiten > Karte hinzufügen > Manuell
+type: custom:ha-pinger-card
+title: Network Control Center
+compact: true
+
+# Vollständiges Control Center als Karte: compact: false
+# Für die große Ansicht empfiehlt sich eine Dashboard-Ansicht mit nur dieser Karte.

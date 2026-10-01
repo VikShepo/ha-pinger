@@ -1,0 +1,49 @@
+blueprint:
+  name: Network Control Center automatisch aktualisieren
+  description: >-
+    Installiert eine von HACS erkannte neue Version. Wähle die Update-Entität
+    von Network Control Center. Ein HA-Neustart ist optional; ohne Neustart
+    wird die neue Integration erst beim nächsten Neustart geladen.
+  domain: automation
+  input:
+    update_entity:
+      name: HACS-Update für Network Control Center
+      selector:
+        entity:
+          filter:
+            domain: update
+            integration: hacs
+    restart_after_update:
+      name: Home Assistant nach erfolgreichem Update neu starten
+      description: Unterbricht HA kurz. Ausgeschaltet bleibt der Neustart manuell.
+      default: false
+      selector:
+        boolean:
+mode: single
+variables:
+  restart_after_update: !input restart_after_update
+triggers:
+  - trigger: state
+    entity_id: !input update_entity
+    to: "on"
+  - trigger: homeassistant
+    event: start
+conditions:
+  - condition: state
+    entity_id: !input update_entity
+    state: "on"
+actions:
+  - action: update.install
+    target:
+      entity_id: !input update_entity
+  - if:
+      - condition: template
+        value_template: "{{ restart_after_update }}"
+    then:
+      - action: homeassistant.restart
+    else:
+      - action: persistent_notification.create
+        data:
+          notification_id: ha_pinger_update
+          title: Network Control Center aktualisiert
+          message: Die neue Version ist installiert. Starte Home Assistant neu, um sie zu laden.

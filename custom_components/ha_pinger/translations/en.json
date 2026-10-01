@@ -1,0 +1,14 @@
+{
+  "title": "Network Control Center",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Your network at a glance",
+        "description": "Creates an empty control center. Add your own IP addresses and domains in Network Control Center. The initial check interval is 5 minutes."
+      }
+    },
+    "abort": {
+      "already_configured": "The Network Control Center is already configured."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+name: Network Control Center WireGuard
+version: "1.4.1"
+slug: ncc_vpn
+url: https://github.com/VikShepo/ha-pinger/tree/master/addons/ncc_vpn
+description: Isolierte WireGuard-Verbindungen für Ping- und Webprüfungen im Network Control Center
+arch:
+  - aarch64
+  - amd64
+startup: application
+boot: auto
+host_network: false
+init: false
+options:
+  api_token: ""
+schema:
+  api_token: password
+ports:
+  8099/tcp: null
+ports_description:
+  8099/tcp: Optionaler API-Port; innerhalb von HA über local-ncc-vpn:8099 erreichbar

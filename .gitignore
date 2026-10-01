@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+dist/
+.test-output/
+playwright-report/
+preview/*.png
+ha_pinger_backups/
+ha_pinger_vpn_backups/
+.storage/
+*.conf

@@ -1,0 +1,14 @@
+{
+  "title": "Network Control Center",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dein Netzwerk im Blick",
+        "description": "Erstellt ein leeres Control Center. Füge im Network Control Center deine eigenen IP-Adressen und Domains hinzu. Das Prüfintervall beträgt zunächst 5 Minuten."
+      }
+    },
+    "abort": {
+      "already_configured": "Das Network Control Center ist bereits eingerichtet."
+    }
+  }
+}
